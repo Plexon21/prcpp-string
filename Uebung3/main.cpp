@@ -2,5 +2,6 @@
 using namespace std; // wird evtl. erst später verwendet
 int main() {
 	String s = String("ab").concat("cd").concat("ef");
-	cout << s << endl;
+    bool b = (String("0") == String::valueOf(0));
+    cout << s << endl;
 }

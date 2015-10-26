@@ -19,8 +19,8 @@ String::String(const char* s): m_start(0) {
 }
 
 //move constructor
-String::String(String&& s) : m_start(s.m_start), m_len(s.m_len), m_string(s.m_string) {
-    cout << "Move-Constructor: " << s << endl;
+String::String(String&& s) : m_start(s.m_start), m_len(s.m_len), m_string(move(s.m_string)) {
+    cout << "Move-Constructor: " << *this << endl;
     s.m_start = 0;
     s.m_len = 0;
     s.m_string = nullptr;
@@ -75,7 +75,7 @@ String String::concat(const String& s) const {
 	newString.m_string = unique_ptr<char[]>(new char[newString.m_len]);
 	//fill the new String
 	memcpy(newString.m_string.get(), m_string.get() + m_start, m_len);
-	memcpy(newString.m_string.get() + m_len, move(s.m_string.get()) + move(s.m_start), move(s.m_len));
+	memcpy(newString.m_string.get() + m_len, move(s.m_string.get()) + s.m_start, s.m_len);
 	return newString;
 }
 

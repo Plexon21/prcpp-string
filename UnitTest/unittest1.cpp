@@ -50,9 +50,9 @@ public:
 	TEST_METHOD(ValueOf) {
 		Assert::IsTrue(String("0") == String::valueOf(0));
 		Assert::IsTrue(String("5") == String::valueOf(5));
+        Assert::IsTrue(String("-2") == String::valueOf(-2));
 		Assert::IsTrue(String("345") == String::valueOf(345));
 		Assert::IsTrue(String("9853") == String::valueOf(9853));
-		Assert::IsTrue(String("-2") == String::valueOf(-2));
 		Assert::IsTrue(String("-1234") == String::valueOf(-1234));
 		Assert::IsTrue(String("123456789") == String::valueOf(123456789));
 		Assert::IsTrue(String("-123456789") == String::valueOf(-123456789));

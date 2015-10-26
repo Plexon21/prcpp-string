@@ -19,17 +19,16 @@ String::String(const char* s): m_start(0) {
 }
 
 //move constructor
-String::String(String&& s) : m_start(0), m_len(0) {
+String::String(String&& s) : m_start(s.m_start), m_len(s.m_len), m_string(s.m_string) {
     cout << "Move-Constructor: " << s << endl;
-    m_string = s.m_string;
-    m_len = s.m_len;
-    m_start = s.m_start;
     s.m_start = 0;
     s.m_len = 0;
     s.m_string = nullptr;
 }
 String::~String() {
 	cout << "Destroy: " << *this << endl; 
+	m_len = 0;
+	m_start = 0;
 	m_string = nullptr; }
 
 char String::charAt(size_t index) const {
@@ -85,9 +84,13 @@ size_t String::length() const {
 }
 
 String String::substring(size_t beg, size_t end) const {
-	if (beg >= m_len || end <= beg) { return String(); }
+
+	if ( end <= beg || beg >= m_len) 
+	{ 
+		return String(); 
+	}
 	String tmp(*this);
-	tmp.m_len = end - beg;
+	tmp.m_len = min(end, m_len) - beg;
 	tmp.m_start += beg;
 	return tmp;
 }
@@ -100,7 +103,7 @@ unique_ptr<char[]> String::toCString() const {
 }
 
 String String::valueOf(int i) {
-    char chars[50];
-    memcpy(chars, &i, sizeof(int));
-    return String(chars);
+    char c[50]; 
+    itoa(i, c, 10);
+	return String(c);
 }
